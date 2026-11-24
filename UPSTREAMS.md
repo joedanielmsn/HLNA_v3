@@ -1,39 +1,43 @@
-# Upstream components
+# Upstream Projects and Integration Register
 
-HLNA follows a reuse-first policy: use an upstream application as a complete working base when it already solves a substantial part of the problem, then add narrowly scoped HLNA integrations.
+## Policy
 
-## Desktop foundation: Jan
+HLNA follows a reuse-first development strategy:
 
-- Project: https://github.com/janhq/jan
-- Pinned revision: `49a84bdeaebdfc0f36c00f252eb638f516a48432`
-- Upstream version at the pinned revision: `0.8.8`
-- License: Apache-2.0 (retain upstream notices and attribution)
-- Why selected: native Tauri desktop application; local llama.cpp inference; OpenAI-compatible custom endpoints; assistants, projects, MCP connectors, and agent workflows; Windows installer and Linux AppImage build targets.
-- Build entry points used by CI: `yarn build:tauri:win32` and `yarn build:tauri:linux`.
+- Prefer mature, maintained open-source applications and services that already solve substantial parts of the product.
+- Prefer integrating a complete upstream application where practical instead of rebuilding its functionality.
+- Use supported APIs, SDKs, MCP, plugins, and stable service interfaces.
+- Keep HLNA-specific code focused on integration, orchestration, permissions, resource management, compatibility, and genuine product gaps.
+- Evaluate maintenance health, security, licence compatibility, platform support, resource requirements, extension points, and long-term sustainability.
+- Pin exact releases or commits only after a component is selected for a concrete integration.
+- Preserve attribution, copyright notices, and all applicable upstream licence obligations.
 
-The selected revision is deliberate: it is the clean Jan baseline already used in earlier HLNA development work. CI checks out this exact commit rather than following a moving upstream branch.
+## Current selection status
 
-### Current limitations to resolve
+**No upstream application or runtime is currently approved as the foundation of HLNA v3.** Previous prototypes and candidate evaluations are historical research, not binding architecture decisions. Re-evaluate candidates against the current master plan before adopting them.
 
-1. The initial build keeps Jan's upstream UI/identity visible. HLNA-specific branding must not remove attribution or violate upstream terms.
-2. Jan's documented GPU recommendation is 6 GB VRAM. HLNA's 4 GB test machine must be supported through a suitable small model and/or the existing Ollama runtime; do not assume Jan's bundled local inference path will use that GPU successfully.
-3. The build does not include model weights. A first-run model/runtime setup is a separate integration milestone.
-4. The upstream auto-updater must be reviewed before any branded fork or redistributed build is considered production-ready. Do not point it at an unsigned HLNA release.
-5. The full transitive dependency and bundled-engine license inventory remains a release gate.
+## Evaluation register
 
-## Candidates for later integration (not bundled yet)
+Add entries here as research is performed. For each candidate, record:
 
-| Project | Potential role | Decision |
-|---|---|---|
-| Ollama — https://github.com/ollama/ollama | Existing local model runtime and model management | First integration target; preserve the user's proven small-model workflow and avoid requiring a second inference engine |
-| AnythingLLM — https://github.com/Mintplex-Labs/anything-llm | Document ingestion, RAG, workspace knowledge, agent flows | Evaluate as a service/module behind a clear interface; MIT-licensed upstream, but its separate desktop distribution is not assumed to be the host |
-| Open WebUI — https://github.com/open-webui/open-webui | Alternative chat/workspace interface and tools | Do not merge blindly; its current licensing/branding conditions need a dedicated review |
-| n8n — https://github.com/n8n-io/n8n | Visual workflow automation | Not selected for direct bundling: its Sustainable Use License is not a conventional OSI open-source license |
+| Field | What to record |
+|---|---|
+| Project | Name and canonical upstream URL |
+| Role | Capability it may provide |
+| Maintenance | Recent releases, activity, issue response, governance |
+| Integration | API, SDK, MCP, plugin, service, or source-level integration |
+| Platforms | Linux and Windows support, packaging |
+| Resources | CPU, RAM, GPU/VRAM and background overhead |
+| Security | Isolation, permissions, update and supply-chain practices |
+| Licence | Project and relevant dependency/model licence terms |
+| Decision | Adopt, evaluate further, defer, or reject—with rationale |
+| Pin | Exact version/commit once selected |
 
 ## Integration rules
 
-- Pin every upstream commit or release used in a build.
-- Keep upstream license files, copyright headers, and required notices.
-- Prefer official APIs, MCP, plugin SDKs, and local HTTP interfaces over copying source files.
-- Do not bundle cloud credentials, model weights, or user data.
-- Record runtime dependencies and their licenses before publishing releases.
+- Do not copy or fork large codebases without a clear technical reason.
+- Prefer narrow adapters and upstream-supported extension points.
+- Avoid tightly coupling HLNA to replaceable providers.
+- Do not bundle cloud credentials, private user data, or model weights.
+- Audit transitive dependencies and bundled assets before redistribution.
+- Treat model-weight and dataset licences separately from application-code licences.
