@@ -9,15 +9,14 @@ HLNA aims to combine a local assistant platform, a universal AI desktop experien
 1. [Master plan](docs/MASTER_PLAN.md) — the complete product vision and established requirements.
 2. [Product plan](docs/PRODUCT_PLAN.md) — staged direction and discovery priorities.
 3. [Phase 0 discovery plan](docs/PHASE_0_DISCOVERY_PLAN.md) — detailed research sequence and architecture exit gate.
-4. [Architecture options](docs/ARCHITECTURE_OPTIONS.md) — preliminary paths to compare before choosing a design.
-5. [Upstream strategy](UPSTREAMS.md) — reuse-first policy and the status of upstream evaluations.
+4. [Architecture options](docs/ARCHITECTURE_OPTIONS.md) — alternatives and the selected baseline direction.
+5. [Initial architecture decision](docs/decisions/0001-initial-implementation.md) — stages and stop gates for the first build.
+6. [Upstream strategy](UPSTREAMS.md) — reuse-first policy and the status of upstream evaluations.
 6. [AI development instructions](AGENTS.md) — guidance for AI coding assistants working in this repository.
 
 ## Current stage
 
-**Discovery and architecture research.** No implementation stack or upstream application is currently locked in by this planning baseline.
-
-The next work is to consolidate requirements, research mature open-source projects, compare integration and architecture options, and record decisions before implementation begins.
+**Discovery and architecture research; initial baseline selected.** HLNA_v3 will first validate Jan v0.8.8 with Ollama. See [ADR 0001](docs/decisions/0001-initial-implementation.md) for the plan and stop gates. This baseline is not approved for release until security, privacy, data-isolation, package-size, and platform checks pass.
 
 ## Core principles
 
@@ -39,7 +38,8 @@ Initial platform priorities are CachyOS / Arch Linux and Windows. Development be
 - `docs/MASTER_PLAN.md` — complete source-of-truth requirements and long-term vision.
 - `docs/PRODUCT_PLAN.md` — staged product direction and immediate discovery work.
 - `docs/PHASE_0_DISCOVERY_PLAN.md` — working discovery plan, upstream research sequence, and exit gate.
-- `docs/ARCHITECTURE_OPTIONS.md` — preliminary architecture comparison; no option is approved.
+- `docs/ARCHITECTURE_OPTIONS.md` — architecture alternatives and the selected initial direction.
+- `docs/decisions/0001-initial-implementation.md` — selected baseline and implementation gates.
 - `UPSTREAMS.md` — reuse-first integration policy and evaluated upstream candidates.
 
 ## Licensing
