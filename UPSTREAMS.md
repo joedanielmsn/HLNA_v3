@@ -111,3 +111,18 @@ A custom HLNA build might be able to omit that worker and use Ollama through Jan
 
 Primary references: [Jan plugin manifest at v0.8.8](https://github.com/janhq/jan/blob/v0.8.8/src-tauri/plugins/tauri-plugin-llamacpp/Cargo.toml), [Jan app features at v0.8.8](https://github.com/janhq/jan/blob/v0.8.8/src-tauri/Cargo.toml), [Jan build target](https://github.com/janhq/jan/blob/v0.8.8/Makefile), [Jan engine documentation](https://docs.jan.ai/desktop/local-engine/llama-cpp).
 
+
+
+### Jan Desktop action paths — source and documentation review
+
+Jan Desktop has several ways that actions can reach tools. They must be checked separately before adopting it:
+
+1. **Chat MCP tools:** Jan documents an approval card for each call, but it also offers an “Allow All MCP Tool Permissions” setting. HLNA would need to keep broad approval off and make the broker the actual enforcement point.
+2. **Local API server:** Jan documents `/v1/orchestrations` and optional server-side MCP execution through `/v1/chat/completions`. The server-side tool setting is disabled by default, but when enabled the local server executes MCP tools. HLNA should keep this API off by default or ensure all enabled calls go through the broker. If enabled, keep it bound to loopback, require an API key, and review trusted-host/CORS settings.
+3. **Built-in agent tools and shell:** Jan's current docs describe file and shell tools, with the desktop shell using an OS sandbox. This is a useful layer, but each built-in tool and command path still needs to be mapped to HLNA's broker.
+4. **MCP servers and extensions:** MCP servers may launch separate programs, and extensions have their own host permissions. For v3, do not allow direct tool servers or extension host calls around the broker.
+
+Jan's v0.8.8 notes describe path checks, local API host protections, and a separate opt-in for server-side MCP execution. These are positive signs, not proof of HLNA's requirement: the selected v3 build would need a full path audit and tests. Jan Desktop's permissions must not be confused with Jan CLI/Agent permissions.
+
+References: [MCP approvals](https://docs.jan.ai/desktop/mcp), [Local API server settings](https://docs.jan.ai/desktop/api-server), [v0.8.8 security notes](https://github.com/janhq/jan/blob/main/docs/src/pages/changelog/2026-10-28-jan-v0.8.8.mdx), [Jan Desktop action host source](https://github.com/janhq/jan/tree/v0.8.8/src-tauri/plugins/tauri-plugin-agent-tools).
+
