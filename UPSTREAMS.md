@@ -126,3 +126,17 @@ Jan's v0.8.8 notes describe path checks, local API host protections, and a separ
 
 References: [MCP approvals](https://docs.jan.ai/desktop/mcp), [Local API server settings](https://docs.jan.ai/desktop/api-server), [v0.8.8 security notes](https://github.com/janhq/jan/blob/main/docs/src/pages/changelog/2026-10-28-jan-v0.8.8.mdx), [Jan Desktop action host source](https://github.com/janhq/jan/tree/v0.8.8/src-tauri/plugins/tauri-plugin-agent-tools).
 
+
+
+## Local data storage — preliminary comparison
+
+| Option | Fit for first single-user desktop release | Trade-off | Status |
+|---|---|---|---|
+| [SQLite](https://sqlite.org/whentouse.html) | One local file, no database server to install or run, works on Linux and Windows, and supports transactions. | Only one writer at a time per database file. The app should keep writes short and use a documented backup method. | **Strong local-storage candidate; not selected.** |
+| PostgreSQL | Client/server database with more support for many concurrent clients and writers. | Requires a separate server process and administration. That adds setup and background resource use before v3 needs multi-user/server deployment. | **Defer unless multi-user or concurrent server use becomes an initial requirement.** |
+| JSON or many separate files | Simple for small settings and portable exports. | More custom code is needed for safe multi-record updates, queries, recovery, and consistency. | **Use for small config only where appropriate; not the main conversation store by default.** |
+
+HLNA_v2 research says Jan already uses local SQLite components. If Jan is evaluated as the v3 desktop base, first inspect its existing data model and backup/migration behavior. Avoid adding a second database or vector store without measured evidence.
+
+References: [SQLite overview and licensing](https://www.sqlite.org/about.html), [when to use SQLite](https://www.sqlite.org/whentouse.html), [PostgreSQL architecture](https://www.postgresql.org/docs/current/tutorial-arch.html).
+
