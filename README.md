@@ -19,13 +19,15 @@ The installers are intended for ordinary end users. Node.js, Rust, Yarn, Make, a
 
 There is no published HLNA v3 release yet. When the first CI build completes, download its artifacts from the repository's **Actions** tab. Tagged builds will be attached to GitHub Releases.
 
-For CachyOS, the eventual one-command installer will be:
+For CachyOS, once a tagged release is published:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/joedanielmsn/HLNA_v3/main/packaging/arch/install-cachyos.sh | bash
+curl -fLO https://raw.githubusercontent.com/joedanielmsn/HLNA_v3/main/packaging/arch/install-cachyos.sh
+less install-cachyos.sh
+bash install-cachyos.sh
 ```
 
-Only run the installer after reviewing the script. It downloads the package from this repository and asks pacman to install it and resolve declared dependencies.
+The script downloads the package from this repository and asks pacman to install it and resolve declared dependencies.
 
 ## Local models and hardware
 
