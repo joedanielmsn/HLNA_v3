@@ -97,3 +97,17 @@ Treat these as three separate jobs:
 
 The central broker remains required. A library such as Cedar may help with step 2, but the broker itself must enforce the decision before the operation runs. Sandboxes help contain the effect; they are not substitutes for user-visible, revocable permissions.
 
+
+
+### Jan engine packaging question
+
+The Jan v0.8.8 source gives a useful clue, but not a proven solution:
+
+- The `tauri-plugin-llamacpp` crate declares its native `engine` feature off by default.
+- The normal upstream `make build` target explicitly runs `build-engine`, which compiles the llama.cpp worker.
+- Jan's release notes and engine docs describe that worker as bundled with the desktop installer.
+
+A custom HLNA build might be able to omit that worker and use Ollama through Jan's custom-provider interface, but the normal build instructions do not prove that the packaged desktop app still builds, runs, and handles errors correctly without it. Record this as an **open validation item**. Do not promise a smaller Jan-based HLNA package until a reproducible build confirms it.
+
+Primary references: [Jan plugin manifest at v0.8.8](https://github.com/janhq/jan/blob/v0.8.8/src-tauri/plugins/tauri-plugin-llamacpp/Cargo.toml), [Jan app features at v0.8.8](https://github.com/janhq/jan/blob/v0.8.8/src-tauri/Cargo.toml), [Jan build target](https://github.com/janhq/jan/blob/v0.8.8/Makefile), [Jan engine documentation](https://docs.jan.ai/desktop/local-engine/llama-cpp).
+
