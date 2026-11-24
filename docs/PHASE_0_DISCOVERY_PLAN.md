@@ -165,3 +165,8 @@ Cedar may help write and evaluate permission rules; it does not run tools or enf
 
 **Working safety requirement:** every enabled tool route must either be disabled or call the trusted HLNA broker before acting. The OS sandbox should further limit tool access where supported. Review how the broker, prompt, and sandbox work together before choosing a framework or enabling computer-control tools.
 
+
+### Jan's built-in model runner: open question
+
+Jan's current source marks its native model-engine feature as optional inside one Rust plugin, but Jan's standard release build still runs a step that builds and bundles the llama.cpp worker. It may be possible to make a custom v3 build that uses Ollama and omits that worker, but this has not been confirmed. Before recommending Jan as the base, require a clean build and package check with the engine omitted, plus a check that the Ollama connection and ordinary chat still work.
+
