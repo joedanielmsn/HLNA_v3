@@ -135,3 +135,18 @@ Do not begin broad product implementation until review has produced:
 
 The v2 handoff describes useful tests and plans, but they belong to v2. They are evidence to consider, not proof that the same result holds in v3. This discovery work has not built, installed, or benchmarked a v3 application. No technology or upstream is selected by this document.
 
+
+## Preliminary research result — 24 November 2026
+
+A first check of current upstream documentation narrows the next evaluation:
+
+- **Jan is the strongest desktop candidate so far.** It has chat, history/projects, model providers, and works with Ollama through an OpenAI-compatible endpoint. Its current app also bundles a llama.cpp engine, so v3 must compare the cost of using that engine with using the user's existing Ollama service. The v0.8.8 release assets are large: about 1.0 GB for the Linux .deb and 545 MB for the Windows installer. This is a real concern for a lightweight platform.
+- **Ollama is the strongest runtime candidate so far.** It is already installed for the user and offers controls for model loading, unloading, queueing, and concurrency. Treat the previous small-model/16K-context test as useful past evidence, not an HLNA_v3 guarantee.
+- **AnythingLLM and LibreChat remain useful comparisons**, but both provide their own agent/tool features. We must determine whether those can be fully disabled or routed through the HLNA broker. LibreChat's standard container setup also runs supporting services, which adds memory use.
+- **Open WebUI is not a leading code-foundation candidate** because of its current branding condition. Keep it as a feature reference unless a suitable license-compatible use is found.
+- The next source-level review should focus on Jan's current tool paths, data paths, telemetry defaults, and whether its bundled inference engine can be excluded safely. Do not rely on UI approval prompts alone.
+
+**Working recommendation, not an architecture decision:** compare a Jan-based desktop with Ollama as the external runtime against Jan using its own bundled runtime. Keep all privileged tools disabled until the trusted HLNA broker can mediate them. If Jan cannot fit the v3 security, size, or maintenance needs, compare a smaller HLNA shell that reuses suitable components rather than adopting a full chat stack automatically.
+
+This review used upstream documentation and release information. No application was installed, built, benchmarked, or adopted.
+
