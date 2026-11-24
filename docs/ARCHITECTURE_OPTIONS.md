@@ -85,3 +85,12 @@ No v3 application has been built or benchmarked as part of this comparison. The 
 ### Additional Jan action-path concern
 
 Current Jan Desktop has more than the visible chat approval card: its local API can execute MCP tools server-side when that setting is enabled, and the app can launch MCP servers and extensions. These settings are disabled or require user configuration in some paths, but v3 must either remove those paths or route their actions through the same broker. Keep the API server disabled until this is reviewed. See the [upstream register](../UPSTREAMS.md) for the source notes.
+
+## Local data storage candidate
+
+For a first release aimed at one person using one desktop, **an embedded local database such as SQLite is the leading storage candidate**. It runs inside the application, stores data in a local file, and does not need a separate database server. SQLite supports Linux and Windows and is public-domain software. It allows many readers but only one writer at a time, which is usually manageable when app writes are short.
+
+A PostgreSQL service is better suited to many concurrent client connections or shared server use, but adds a long-running database process and setup work. The v3 plan does include eventual multi-user and self-hosted use; that does not require a database server for the first release if the storage interface leaves room to change later.
+
+If Jan remains the desktop candidate, inspect its SQLite schema, migrations, project separation, and backup/export paths before selecting storage. Reuse compatible existing storage rather than adding another database. Do not select a vector-search add-on until document retrieval is part of the agreed first-release or next milestone.
+
