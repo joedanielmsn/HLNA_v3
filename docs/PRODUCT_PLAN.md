@@ -6,7 +6,7 @@ This document translates the complete vision in [MASTER_PLAN.md](MASTER_PLAN.md)
 
 **Phase 0 — discovery and architecture.** The repository is a clean planning baseline. No implementation stack, desktop foundation, or upstream dependency is currently selected by this plan.
 
-See [PHASE_0_DISCOVERY_PLAN.md](PHASE_0_DISCOVERY_PLAN.md) for the detailed research sequence, proposed first-release scope, evaluation checklist, and Phase 0 exit gate.
+See [PHASE_0_DISCOVERY_PLAN.md](PHASE_0_DISCOVERY_PLAN.md) for the detailed research sequence and Phase 0 exit gate. See [ARCHITECTURE_OPTIONS.md](ARCHITECTURE_OPTIONS.md) for the preliminary architecture comparison; it is a recommendation, not an approved design.
 
 ## Guiding product strategy
 
