@@ -4,9 +4,9 @@ This document translates the complete vision in [MASTER_PLAN.md](MASTER_PLAN.md)
 
 ## Current status
 
-**Phase 0 — discovery and architecture.** The repository is a clean planning baseline. No implementation stack, desktop foundation, or upstream dependency is currently selected by this plan.
+**Phase 0 — discovery and architecture; initial baseline direction selected.** Jan v0.8.8 is selected as the first desktop source to validate, with Ollama as the only initially used local model runtime and SQLite as the local data-store candidate. See [ADR 0001](decisions/0001-initial-implementation.md) for the implementation stages and stop gates. This does not approve Jan for release; broker, privacy, package-size, and platform checks remain required.
 
-See [PHASE_0_DISCOVERY_PLAN.md](PHASE_0_DISCOVERY_PLAN.md) for the detailed research sequence and Phase 0 exit gate. See [ARCHITECTURE_OPTIONS.md](ARCHITECTURE_OPTIONS.md) for the preliminary architecture comparison; it is a recommendation, not an approved design.
+See [PHASE_0_DISCOVERY_PLAN.md](PHASE_0_DISCOVERY_PLAN.md) for the research sequence and exit gate, and [ARCHITECTURE_OPTIONS.md](ARCHITECTURE_OPTIONS.md) for alternatives and rationale.
 
 ## Guiding product strategy
 
