@@ -48,17 +48,17 @@ jobs:
 
       - name: Install native build tools
         shell: pwsh
-        run: choco install llvm ninja cmake --yes --no-progress
+        run: choco install llvm ninja cmake make --yes --no-progress
 
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install dependencies and build
+      - name: Build Jan desktop app
         shell: bash
         working-directory: upstream/jan
         run: |
-          corepack yarn install --immutable
-          corepack yarn build:tauri:win32
+          yarn config set -H enableImmutableInstalls false
+          make build JAN_ENGINE_VARIANT=cpu
 
       - name: Collect Windows installers
         shell: pwsh
@@ -96,7 +96,7 @@ jobs:
       - name: Install Linux build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y             build-essential curl wget file git             libwebkit2gtk-4.1-dev             libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev             libssl-dev libxdo-dev patchelf libfuse2             libvulkan-dev
+          sudo apt-get install -y build-essential make curl wget file git libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev libssl-dev libxdo-dev patchelf libfuse2 libvulkan-dev
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -112,11 +112,11 @@ jobs:
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install dependencies and build AppImage
+      - name: Build Jan desktop app
         working-directory: upstream/jan
         run: |
-          corepack yarn install --immutable
-          corepack yarn build:tauri:linux
+          yarn config set -H enableImmutableInstalls false
+          make build JAN_ENGINE_VARIANT=cpu
 
       - name: Collect AppImage
         run: |
@@ -129,15 +129,15 @@ jobs:
       - name: Build CachyOS pacman package
         run: |
           set -euo pipefail
-          docker run --rm             -v "$PWD/dist:/work"             -v "$PWD/packaging/arch:/packaging:ro"             archlinux:base-devel             bash -lc '
-              pacman -Sy --noconfirm --needed archlinux-keyring
-              useradd -m builder
-              cp /work/HLNA.AppImage /home/builder/
-              cp /packaging/PKGBUILD /packaging/hlna.desktop /packaging/hlna.svg /packaging/hlna-launcher.sh /packaging/LICENSE /home/builder/
-              chown -R builder:builder /home/builder
-              su builder -c "cd /home/builder && makepkg --nodeps --noconfirm"
-              cp /home/builder/*.pkg.tar.zst /work/HLNA-cachyos-x86_64.pkg.tar.zst
-            '
+          docker run --rm -v "$PWD/dist:/work" -v "$PWD/packaging/arch:/packaging:ro" archlinux:base-devel bash -lc '
+            pacman -Sy --noconfirm --needed archlinux-keyring
+            useradd -m builder
+            cp /work/HLNA.AppImage /home/builder/
+            cp /packaging/PKGBUILD /packaging/hlna.desktop /packaging/hlna.svg /packaging/hlna-launcher.sh /packaging/LICENSE /home/builder/
+            chown -R builder:builder /home/builder
+            su builder -c "cd /home/builder && makepkg --nodeps --noconfirm"
+            cp /home/builder/*.pkg.tar.zst /work/HLNA-cachyos-x86_64.pkg.tar.zst
+          '
 
       - name: Generate checksums
         run: |
