@@ -1,65 +1,84 @@
-# HLNA v3 product plan
+# HLNA v3 — Product and Discovery Plan
 
-## Product goal
+This document translates the complete vision in [MASTER_PLAN.md](MASTER_PLAN.md) into a practical sequence of work. The master plan remains the authoritative source for detailed requirements.
 
-Deliver one cohesive desktop assistant for Windows and CachyOS, with local-first inference and optional cloud providers. Build on mature projects rather than rewriting chat, model serving, document indexing, browser automation, or workflow engines from scratch.
+## Current status
 
-## Stage 0 — reproducible desktop baseline
+**Phase 0 — discovery and architecture.** The repository is a clean planning baseline. No implementation stack, desktop foundation, or upstream dependency is currently selected by this plan.
 
-- Build the pinned Jan desktop source on GitHub-hosted Windows and Linux runners.
-- Produce a Windows x64 installer and a CachyOS/Arch x86_64 pacman package.
-- Keep upstream attribution and license material intact.
-- Publish checksums and build artifacts.
-- No model weights are bundled.
+## Guiding product strategy
 
-## Stage 1 — HLNA model/runtime integration
+HLNA is not intended to reimplement every assistant capability. First identify mature, maintained open-source applications and services that already solve substantial parts of the product. Prefer integrating those components through supported APIs, SDKs, MCP, plugins, or service interfaces.
 
-- Make the user's existing Ollama runtime a first-class provider.
-- Add a guided local endpoint preset for Ollama's OpenAI-compatible API.
-- Preserve the tested Qwen 3.5 2B Q4_K_M / 16,384-token context profile as an optional preset, not a hard-coded assumption.
-- Detect runtime availability and model presence; never download a multi-gigabyte model silently.
-- Provide CPU fallback and avoid competing inference servers loading the same model simultaneously.
-- Keep cloud providers opt-in and clearly label remote requests.
+Custom HLNA development should concentrate on the parts that create a coherent product: integration, central orchestration, permissions, resource management, compatibility, project intelligence, and the HLNA user experience.
 
-## Stage 2 — HLNA identity and desktop experience
+## Phase 0 — requirements, research, and architecture
 
-- Introduce HLNA branding without removing upstream notices or violating upstream trademark/branding requirements.
-- Create a single command-centre home, configurable assistant profiles, and a lightweight floating companion.
-- Preserve chat streaming, cancellation, conversation history, Markdown/code rendering, copy, regenerate, rename, and delete behaviors already validated in the earlier HLNA prototype.
-- Keep the interface clean and configurable rather than using a sci-fi/JARVIS visual style.
+- Consolidate and prioritise the requirements in MASTER_PLAN.md.
+- Separate foundational requirements from later-stage ambitions.
+- Research mature upstream applications and services for each major capability.
+- Check maintenance activity, community health, APIs, extension points, platform support, resource requirements, security posture, and licences.
+- Compare integration options against rebuilding only where necessary.
+- Verify the development hardware and practical model/runtime constraints.
+- Design boundaries for the central orchestrator, permission broker, resource manager, memory, integrations, and desktop experience.
+- Record decisions, alternatives, trade-offs, and unresolved questions.
+- Revisit licensing before architecture finalisation and public release.
 
-## Stage 3 — shared assistant services
+**Exit gate:** an agreed architecture and integration strategy, with documented upstream selections and rejected alternatives. Do not begin broad implementation before this gate.
 
-- Central orchestrator with on-demand specialist capabilities: research, coding, files/documents, project work, learning, and desktop interaction.
-- Shared model/runtime manager with bounded parallelism and resource awareness.
-- Project-scoped memory, conversation memory, document retrieval, and inspect/edit/export controls.
-- Use mature upstream services through local APIs, MCP, SDKs, or plugins where possible.
+## Phase 1 — platform foundation
 
-## Stage 4 — permissioned computer interaction and automation
+Subject to architecture decisions:
+- Application/service lifecycle and configuration.
+- Diagnostics, structured logging, and event system.
+- Permission broker foundations.
+- Resource manager foundations.
+- Model/runtime abstraction.
+- Minimal usable assistant experience.
 
-- Central permission broker; tools and plugins cannot bypass it.
-- Preview sensitive actions; require approval for destructive or external actions.
-- Audit log records the actor, action, target, and outcome.
-- Cancellation, checkpoints, undo/recovery, and safe path boundaries.
-- Visible, pausable desktop observation; no hidden screen, camera, or microphone recording.
-- Workflow templates, schedules, event triggers, and user-reviewed automation.
+## Phase 2 — intelligence and knowledge
 
-## Stage 5 — reliability and distribution
+- Central orchestrator and on-demand specialist capabilities.
+- Model routing and runtime coordination.
+- Conversation and structured memory.
+- Document retrieval and project-scoped knowledge.
+- User inspection, editing, export, and deletion controls.
 
-- Backup/restore, portable data export, revocable integrations, and independent module disable switches.
-- Gaming/resource-aware mode that pauses nonessential background AI workloads.
-- Windows x64 and CachyOS/Arch x86_64 first; ARM64 and macOS later.
-- Fresh-install testing on clean Windows and CachyOS virtual machines before calling a release stable.
+## Phase 3 — tools and computer interaction
 
-## Release gates
+- Integration/plugin framework.
+- File, terminal, browser, and desktop capabilities.
+- Permission prompts and action previews.
+- Verification, cancellation, audit history, undo, and checkpoints.
 
-A release is not considered stable merely because it compiles. It must at minimum:
+## Phase 4 — desktop experience
 
-1. Install on a clean supported OS without developer prerequisites.
-2. Launch and shut down reliably.
-3. Complete local-only chat without requiring a cloud account.
-4. Show clear status when the local model runtime or selected model is unavailable.
-5. Stop generation promptly and preserve conversation history across restart.
-6. Keep sensitive tool actions behind visible permission prompts.
-7. Keep app data and project memory local unless the user explicitly enables a remote service.
-8. Include upstream notices and a reviewable dependency/license inventory.
+- Chat and project workspaces.
+- Dashboard and floating companion.
+- Configurable voice.
+- Visible, pausable desktop awareness.
+- Notifications and proactive assistance controls.
+
+## Phase 5 — automation and ecosystem
+
+- Workflow recording and suggestions.
+- User-reviewed scheduled and event-triggered automation.
+- Plugin SDK, compatibility, sandboxing, and trust model.
+
+## Phase 6 — portability and distribution
+
+- Backup, restore, and portable data export.
+- Optional encrypted sync and self-hosted mode.
+- Windows and Linux packaging and clean-install validation.
+
+## Phase 7 — AI-integrated Arch distribution
+
+- Base-system and desktop strategy.
+- Modular installation profiles.
+- Hardware detection and configuration.
+- Developer and gaming profiles.
+- Installer, update, and recovery strategy.
+
+## Release quality
+
+A successful build is not automatically a release-ready product. Each milestone needs measurable acceptance criteria covering reliability, security, privacy, resource use, reversibility, and supported-platform installation. The detailed requirements are in MASTER_PLAN.md.
