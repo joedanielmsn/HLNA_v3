@@ -8,8 +8,12 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: hlna-v3-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
-  contents: write
+  contents: read
 
 env:
   JAN_REF: 49a84bdeaebdfc0f36c00f252eb638f516a48432
@@ -153,6 +157,8 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: [windows, cachyos]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Download Windows installer
         uses: actions/download-artifact@v4
