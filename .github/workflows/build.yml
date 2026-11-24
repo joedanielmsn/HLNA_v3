@@ -53,6 +53,10 @@ jobs:
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Enable Git long paths for llama.cpp checkout
+        shell: pwsh
+        run: git config --global core.longpaths true
+
       - name: Build Jan desktop app
         shell: bash
         working-directory: upstream/jan
