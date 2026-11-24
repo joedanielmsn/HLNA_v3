@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=HLNA Preview
+Comment=Local-first desktop AI assistant (Jan foundation)
+Exec=hlna %U
+Icon=hlna
+Terminal=false
+Categories=Utility;Development;Office;
+StartupNotify=true
