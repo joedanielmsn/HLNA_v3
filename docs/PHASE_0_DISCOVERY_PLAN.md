@@ -1,6 +1,6 @@
 # HLNA_v3 — Phase 0 Discovery Plan
 
-**Status:** Working discovery plan; architecture and technology decisions remain open  
+**Status:** Jan/Ollama selected for initial baseline validation; later architecture and release decisions remain open  
 **Date:** 24 November 2026  
 **Scope:** HLNA_v3 only
 
@@ -133,7 +133,7 @@ Do not begin broad product implementation until review has produced:
 
 ## Known history and limits
 
-The v2 handoff describes useful tests and plans, but they belong to v2. They are evidence to consider, not proof that the same result holds in v3. This discovery work has not built, installed, or benchmarked a v3 application. No technology or upstream is selected by this document.
+The v2 handoff describes useful tests and plans, but they belong to v2. They are evidence to consider, not proof that the same result holds in v3. This discovery work has not built, installed, or benchmarked a v3 application. The initial baseline is recorded in [ADR 0001](decisions/0001-initial-implementation.md); release adoption remains conditional on its stop gates.
 
 
 ## Preliminary research result — 24 November 2026
