@@ -150,3 +150,18 @@ A first check of current upstream documentation narrows the next evaluation:
 
 This review used upstream documentation and release information. No application was installed, built, benchmarked, or adopted.
 
+
+### Permission and sandbox findings
+
+Keep three ideas separate in the comparison:
+
+- **Approval prompt:** what the user sees and answers.
+- **Permission broker:** the central checker that decides whether an action is allowed and records it.
+- **Sandbox:** an operating-system limit on what a running tool process can access.
+
+Jan Desktop's current MCP docs show individual tool-call approval and an option that pre-approves all MCP tools. That is useful reference behavior, but a prompt inside Jan is not proof that every v3 tool path goes through HLNA's broker. Jan's CLI/Agent permission guide is a separate surface from Desktop and must not be treated as the Desktop security model.
+
+Cedar may help write and evaluate permission rules; it does not run tools or enforce OS file boundaries by itself. Linux Landlock and Rust cap-std may help limit file access, but each covers a different layer and neither is a complete Linux/Windows broker. Tauri capabilities are only relevant if Tauri remains a framework candidate.
+
+**Working safety requirement:** every enabled tool route must either be disabled or call the trusted HLNA broker before acting. The OS sandbox should further limit tool access where supported. Review how the broker, prompt, and sandbox work together before choosing a framework or enabling computer-control tools.
+
