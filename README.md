@@ -9,8 +9,9 @@ HLNA aims to combine a local assistant platform, a universal AI desktop experien
 1. [Master plan](docs/MASTER_PLAN.md) — the complete product vision and established requirements.
 2. [Product plan](docs/PRODUCT_PLAN.md) — staged direction and discovery priorities.
 3. [Phase 0 discovery plan](docs/PHASE_0_DISCOVERY_PLAN.md) — detailed research sequence and architecture exit gate.
-4. [Upstream strategy](UPSTREAMS.md) — reuse-first policy and the status of upstream evaluations.
-5. [AI development instructions](AGENTS.md) — guidance for AI coding assistants working in this repository.
+4. [Architecture options](docs/ARCHITECTURE_OPTIONS.md) — preliminary paths to compare before choosing a design.
+5. [Upstream strategy](UPSTREAMS.md) — reuse-first policy and the status of upstream evaluations.
+6. [AI development instructions](AGENTS.md) — guidance for AI coding assistants working in this repository.
 
 ## Current stage
 
@@ -38,6 +39,7 @@ Initial platform priorities are CachyOS / Arch Linux and Windows. Development be
 - `docs/MASTER_PLAN.md` — complete source-of-truth requirements and long-term vision.
 - `docs/PRODUCT_PLAN.md` — staged product direction and immediate discovery work.
 - `docs/PHASE_0_DISCOVERY_PLAN.md` — working discovery plan, upstream research sequence, and exit gate.
+- `docs/ARCHITECTURE_OPTIONS.md` — preliminary architecture comparison; no option is approved.
 - `UPSTREAMS.md` — reuse-first integration policy and evaluated upstream candidates.
 
 ## Licensing
