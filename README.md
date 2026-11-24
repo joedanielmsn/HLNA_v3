@@ -46,6 +46,7 @@ A local model download is separate from the application installer and can be sev
 ## Repository map
 
 - `UPSTREAMS.md` — upstream selection and pinned revisions.
+- `docs/OLLAMA_SETUP.md` — connect an existing Ollama runtime without replacing it.
 - `docs/PRODUCT_PLAN.md` — product architecture and staged integration plan.
 - `packaging/arch/` — CachyOS/Arch package and installer.
 - `.github/workflows/build.yml` — Windows and Linux build/release pipeline.
