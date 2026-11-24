@@ -98,14 +98,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: yarn
-          cache-dependency-path: upstream/jan/yarn.lock
 
       - name: Enable pinned Yarn
         run: |
           corepack enable
           corepack prepare yarn@${YARN_VERSION} --activate
-          yarn --version
+          corepack yarn --version
 
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
@@ -113,7 +111,7 @@ jobs:
       - name: Install dependencies and build AppImage
         working-directory: upstream/jan
         run: |
-          yarn install --immutable
+          corepack yarn install --immutable
           corepack yarn build:tauri:linux
 
       - name: Collect AppImage
