@@ -73,3 +73,27 @@ Jan's built-in approval screens or another app's approval screens must not repla
 - LocalAI: [official overview](https://github.com/mudler/LocalAI/blob/master/docs/content/overview.md).
 - Open WebUI: [official license guidance](https://docs.openwebui.com/license/).
 
+
+
+## Permission and isolation research — 24 November 2026
+
+These candidates solve different parts of the safety problem; none is a complete HLNA permission broker.
+
+| Candidate | What it may help with | Limit / next check | Status |
+|---|---|---|---|
+| [Cedar](https://github.com/cedar-policy/cedar) | Apache-2.0 policy language and Rust evaluator. It can answer whether a request matches rules written by the application. | It does not itself control tools, identify trusted callers, ask the user, limit filesystem access, or execute actions. A trusted HLNA host must still build the request, enforce the decision, and audit the result. Compare its dependency and policy-authoring cost with simple rules for the first release. | **Evaluate as an optional policy engine; do not adopt yet.** |
+| [cap-std](https://docs.rs/cap-std/latest/cap_std/) | Rust APIs that make code access files through an explicitly granted directory handle instead of unrestricted global paths. | Helps constrain HLNA code that uses the API; does not sandbox arbitrary child processes or replace OS enforcement. Check how it handles the paths and file operations HLNA actually needs. | **Candidate for scoped file access if Rust is selected.** |
+| [Linux Landlock](https://www.kernel.org/doc/html/latest/userspace-api/landlock.html) | Linux kernel interface for restricting a process's file and network access without root privileges. | Linux-specific; some restrictions do not apply to files opened before sandboxing. Windows needs a different mechanism. Test on the supported CachyOS kernels before relying on it. | **Linux sandbox candidate; not a cross-platform broker.** |
+| [Tauri 2 capabilities](https://v2.tauri.app/security/capabilities/) | If the desktop uses Tauri, limits which native commands the frontend can call and with what scopes. | Protects the webview-to-host boundary; it does not by itself enforce policy for every agent, MCP server, plugin, or automation. | **Framework-specific defense layer; evaluate only if Tauri remains a candidate.** |
+| [Jan Desktop MCP approvals](https://docs.jan.ai/desktop/mcp) | Current Jan desktop docs describe per-call user approval for MCP tools and a setting that can pre-approve all MCP tools. Jan also documents OS sandboxing for its desktop shell. | A user prompt and a sandbox are useful, but they do not prove every path goes through an HLNA-owned broker. The Jan CLI/Agent permission documentation describes a separate surface; do not assume its rules apply to Desktop. Audit the selected release's complete desktop tool paths. | **Useful design reference; not the HLNA broker.** |
+
+### Safety model to evaluate for HLNA
+
+Treat these as three separate jobs:
+
+1. **User prompt:** shows the user the action and collects a yes/no decision.
+2. **Central broker:** checks who asked, what they want to do, which file/app/service it affects, and whether policy allows it. It records the result and can cancel or revoke access.
+3. **Operating-system sandbox:** limits what a process can reach even if the model, prompt, or application has a bug.
+
+The central broker remains required. A library such as Cedar may help with step 2, but the broker itself must enforce the decision before the operation runs. Sandboxes help contain the effect; they are not substitutes for user-visible, revocable permissions.
+
