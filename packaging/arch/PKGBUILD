@@ -4,11 +4,11 @@ pkgrel=1
 pkgdesc="HLNA desktop assistant preview (Jan desktop foundation)"
 arch=('x86_64')
 url="https://github.com/joedanielmsn/HLNA_v3"
-license=('custom')
+license=('Apache-2.0')
 depends=('fuse2' 'vulkan-icd-loader')
 optdepends=('nvidia-utils: NVIDIA Vulkan/CUDA driver support')
-source=('HLNA.AppImage' 'hlna.desktop' 'hlna.svg' 'hlna-launcher.sh')
-sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
+source=('HLNA.AppImage' 'hlna.desktop' 'hlna.svg' 'hlna-launcher.sh' 'LICENSE')
+sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 package() {
   install -Dm755 "$srcdir/HLNA.AppImage" "$pkgdir/opt/hlna/HLNA.AppImage"
@@ -16,4 +16,5 @@ package() {
   install -Dm644 "$srcdir/hlna.desktop" "$pkgdir/usr/share/applications/hlna.desktop"
   install -Dm644 "$srcdir/hlna.svg" "$pkgdir/usr/share/pixmaps/hlna.svg"
   install -Dm644 "$srcdir/hlna.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/hlna.svg"
+  install -Dm644 "$srcdir/LICENSE" "$pkgdir/usr/share/licenses/hlna/LICENSE"
 }
