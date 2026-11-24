@@ -1,6 +1,6 @@
 # HLNA_v3 — Preliminary Architecture Options
 
-**Status:** Research recommendation only; no architecture or framework is approved  
+**Status:** Jan/Ollama selected for the first implementation baseline; release adoption remains conditional  
 **Date:** 24 November 2026  
 **Scope:** HLNA_v3
 
@@ -26,16 +26,16 @@ The first useful version should offer local chat while leaving room for the larg
 | **B. Run a complete chat app beside an HLNA broker** | Use an existing app such as AnythingLLM or LibreChat for chat, with a separate HLNA service as the only approved tool connection. | Could reuse more complete features and make an early chat demo quicker. | The app may expose its own tools directly, so those paths must be disabled. Users would see two parts of the product. LibreChat's standard setup runs multiple supporting services; AnythingLLM has its own server and agent system. Extra services use memory and create more setup and update work. |
 | **C. Build a small HLNA desktop and reuse focused components** | Create a thin user interface and trusted core, using established runtimes and libraries behind clear interfaces. | HLNA controls the permission boundary, app identity, and resource behavior directly. It avoids adopting a broad app with features HLNA does not want yet. | Requires more HLNA code and long-term UI maintenance. This risks rebuilding solved chat features if a suitable existing desktop foundation can be adapted safely. |
 
-## Working recommendation
+## Selected direction for the first implementation baseline
 
-**Evaluate Option A first, with Option C as the fallback.** Jan currently appears to be the strongest desktop candidate because it already has desktop chat and can connect to Ollama. This recommendation is based on the current v3 requirements and Jan's current documentation; Jan's earlier use in v2 is only historical context.
+**Start with Option A: Jan v0.8.8 as the desktop base and Ollama as the only initially used model runtime.** This follows the user's request for the agent to choose the starting architecture. It is based on current v3 requirements and Jan's current interfaces; Jan's earlier use in v2 is only historical context.
 
-Before choosing Jan, answer two questions:
+This is a selection for baseline implementation, not final approval to ship Jan in HLNA. Before broad feature work, answer two questions:
 
 1. Can v3 build and package Jan without shipping a second model engine, while preserving ordinary chat and Ollama connection behavior?
 2. Can every action-capable path be disabled or routed through the HLNA permission broker?
 
-If either answer is no, compare a thin HLNA desktop with focused reuse. Running a complete chat app beside a separate broker remains a prototype option, not the preferred product shape.
+If either answer is no, stop broad work and compare a thin HLNA desktop with focused reuse. Running a complete chat app beside a separate broker remains a prototype option, not the preferred product shape. See [ADR 0001](decisions/0001-initial-implementation.md) for the selected implementation stages and stop gates.
 
 ## Proposed component boundaries
 
