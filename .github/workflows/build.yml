@@ -44,6 +44,10 @@ jobs:
           corepack prepare yarn@${YARN_VERSION} --activate
           yarn --version
 
+      - name: Install native build tools
+        shell: pwsh
+        run: choco install llvm ninja cmake --yes --no-progress
+
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
 
@@ -129,7 +133,7 @@ jobs:
               pacman -Sy --noconfirm --needed archlinux-keyring
               useradd -m builder
               cp /work/HLNA.AppImage /home/builder/
-              cp /packaging/PKGBUILD /packaging/hlna.desktop /packaging/hlna.svg /packaging/hlna-launcher.sh /home/builder/
+              cp /packaging/PKGBUILD /packaging/hlna.desktop /packaging/hlna.svg /packaging/hlna-launcher.sh /packaging/LICENSE /home/builder/
               chown -R builder:builder /home/builder
               su builder -c "cd /home/builder && makepkg --nodeps --noconfirm"
               cp /home/builder/*.pkg.tar.zst /work/HLNA-cachyos-x86_64.pkg.tar.zst
