@@ -6,6 +6,8 @@ This document translates the complete vision in [MASTER_PLAN.md](MASTER_PLAN.md)
 
 **Phase 0 — discovery and architecture.** The repository is a clean planning baseline. No implementation stack, desktop foundation, or upstream dependency is currently selected by this plan.
 
+See [PHASE_0_DISCOVERY_PLAN.md](PHASE_0_DISCOVERY_PLAN.md) for the detailed research sequence, proposed first-release scope, evaluation checklist, and Phase 0 exit gate.
+
 ## Guiding product strategy
 
 HLNA is not intended to reimplement every assistant capability. First identify mature, maintained open-source applications and services that already solve substantial parts of the product. Prefer integrating those components through supported APIs, SDKs, MCP, plugins, or service interfaces.
