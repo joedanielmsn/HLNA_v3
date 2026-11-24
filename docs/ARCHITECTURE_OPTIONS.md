@@ -81,3 +81,7 @@ For the first release, the safest working scope is chat only until the broker ha
 | Data ownership | Confirm app data roots, migrations, backup/export, and delete behavior are isolated to HLNA |
 
 No v3 application has been built or benchmarked as part of this comparison. The Phase 0 exit gate in [PHASE_0_DISCOVERY_PLAN.md](PHASE_0_DISCOVERY_PLAN.md) still applies.
+
+### Additional Jan action-path concern
+
+Current Jan Desktop has more than the visible chat approval card: its local API can execute MCP tools server-side when that setting is enabled, and the app can launch MCP servers and extensions. These settings are disabled or require user configuration in some paths, but v3 must either remove those paths or route their actions through the same broker. Keep the API server disabled until this is reviewed. See the [upstream register](../UPSTREAMS.md) for the source notes.
